@@ -6,6 +6,8 @@ class Config:
      FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
      FLASKY_MAIL_SENDER = 'Flasky Admin <flasky@example.com>'
      FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
+     SPHINX_SERVER = os.environ.get('SPHINX_URI') or '127.0.0.1'
+     SPHINX_PORT = os.environ.get('SPHINX_PORT') or 9306
 
      @staticmethod
      def init_app(app):
@@ -22,16 +24,19 @@ class DevelopmentConfig(Config):
                                'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
 
+
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
-
+    #SPHINX_SERVER = os.environ.get('SPHINX_URI') or '127.0.0.1'
+    #SPHINX_PORT = os.environ.get('SPHINX_PORT') or 9306
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-
+    #SPHINX_SERVER = os.environ.get('SPHINX_URI') or '127.0.0.1'
+    #SPHINX_PORT = os.environ.get('SPHINX_PORT') or 9306
 
 config = {
     'development': DevelopmentConfig,
