@@ -21,9 +21,23 @@ def index():
              known=session.get('known', False),
              current_time=datetime.utcnow())
 
+@main.route('/search', methods=['GET', 'POST'])
+def search_main():
+     form = SearchForm()
+     if form.validate_on_submit():
+     # ...
+        return redirect(url_for('.search_main'))
+     return render_template('search.html',
+             form=form, name=session.get('name'),
+             known=session.get('known', False),
+             current_time=datetime.utcnow())
 
 
 
 class NameForm(Form):
  name = StringField('What is your name?', validators=[Required()])
+ submit = SubmitField('Submit')
+
+class SearchForm(Form):
+ search = StringField('Search', validators=[Required()])
  submit = SubmitField('Submit')
