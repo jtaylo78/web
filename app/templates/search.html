@@ -5,7 +5,42 @@
 
 {% block page_content %}
 <div class="page-header">
+</div>
+    {% for message in get_flashed_messages() %}
+ <div class="alert alert-warning">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+ {{ message }}
+ </div>
+ {% endfor %}
+
+
      Current Search: {{ search_string }}
     {{ wtf.quick_form(form) }}
-</div>
+ <div class="table-responsive">
+   <table class="table">
+    <thead>
+        <tr>
+            <th>Event</th>
+
+        <tr>
+    </thead>
+    <tbody>
+    {% if search_data %}
+
+        {% for event in search_data %}
+            <tr>
+                <td><p>{{ event[1] }}</p>
+                <div>inpect</div>
+                </td>
+            </tr>
+
+        {% endfor %}
+
+    {% else %}
+        No results found!
+    {% endif %}
+   </tbody>
+</table>
+ </div>
+
 {% endblock %}
